@@ -48,14 +48,23 @@ def obtainCollection(selected_collection, comm_query, id=None):
 def index():
     return render_template('index.html', jobs=obtainCollection('jobs', 'find'))
 
-@app.route('/user')
-def user_list():
-    return render_template('job-description.html', users=obtainCollection('users', 'find'))
 
 @app.route('/job-description/<string:job_id>')
 def job_description(job_id):
     job = obtainCollection('jobs', 'find_one', job_id)
     return render_template('job-description.html', job=job)
+
+
+@app.route('/users-list')
+def user_list():
+    # return "Hello users"
+    return render_template('users.html', users=obtainCollection('users', 'find'))
+
+
+@app.route('/user-description/<string:user_id>')
+def user_description(user_id):
+    user = obtainCollection('users', 'find_one', user_id)
+    return render_template('user-description.html', user=user)
 
 if __name__ == '__main__':
     app.run(debug=True)
