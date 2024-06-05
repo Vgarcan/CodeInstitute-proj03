@@ -1,46 +1,61 @@
 from flask import Flask, render_template, flash, redirect, url_for
-# from flask_pymongo import PyMongo
 from pymongo import MongoClient
-
-
+from bson.objectid import ObjectId
 import os
 from dotenv import load_dotenv
 
-
 app = Flask(__name__)
 
+### Extra Functionalities ###
+def obtainCollection(selected_collection, comm_query, id=None):
+    """
+    This function connects to a MongoDB database, performs a specified query, and returns the result.
 
-@app.route('/')
-def hello_world():
-    
-    # Cargar variables de entorno desde el archivo .env
+    Parameters:
+    selected_collection (str): The name of the MongoDB collection to connect to.
+    comm_query (str): The type of query to perform. It can be 'find' or 'find_one'.
+    id (str, optional): The ID of the document to find when using 'find_one' query. Defaults to None.
+
+    Returns:
+    collection: The result of the query. If an error occurs during the connection or query, it returns None.
+
+    Raises:
+    Exception: If an error occurs during the connection or query.
+    """
     load_dotenv()
-
-    # Obtener la URI de conexión desde las variables de entorno
     mongo_uri = os.getenv("MONGO_URI")
 
     try:
-        # Create an instance of the "MongoClient"
+        # Connect to the DB
         client = MongoClient(mongo_uri)
-
-        # Access tu DB named "jsearchweb"
         dbname = client[os.getenv("DB_NAME")]
-
-        # If the connection is succesful
-        print("CONNECTED\n")
-        
-        collection= dbname['jobs'].find()
-        
-
-        print("Listando colecciones:")
-        print(dbname.list_collection_names())
+        # Performs specific query
+        if comm_query == 'find':
+            collection = dbname[selected_collection].find()
+        elif comm_query == 'find_one' and id is not None:
+            collection = dbname[selected_collection].find_one({"_id": ObjectId(id)})
+        else:
+            collection = None
 
     except Exception as e:
         print("Error connecting to MONGO_DB:\n", e)
-        
+        collection = None
 
+    return collection
 
-    return render_template('index.html', jobs=collection)
+### ROUTES ###
+@app.route('/')
+def index():
+    return render_template('index.html', jobs=obtainCollection('jobs', 'find'))
+
+@app.route('/user')
+def user_list():
+    return render_template('job-description.html', users=obtainCollection('users', 'find'))
+
+@app.route('/job-description/<string:job_id>')
+def job_description(job_id):
+    job = obtainCollection('jobs', 'find_one', job_id)
+    return render_template('job-description.html', job=job)
 
 if __name__ == '__main__':
     app.run(debug=True)
