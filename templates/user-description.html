@@ -7,9 +7,9 @@
         <div class="container">
 
             <div class="card-body">
-                <h2>{{ user.full_name }}</h2>
+                <h2>{{ user.profile.full_name }}</h2>
                 <h2>{{ user._id }}</h2>
-                <p><strong>Role:</strong> {{ user.Role }}</p>
+                <p><strong>CV:</strong><a href="{{ user.profile.resume_url }}">Download here</a></p>
                 <p class="card-text overflow-hidden desc-card">{{ user.email }}</p>
                 <p class="card-text ">SALARY: £{{ user.salary_range }}</p>
                 <div class="d-flex justify-content-between align-items-center">
