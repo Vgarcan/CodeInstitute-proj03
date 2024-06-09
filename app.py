@@ -46,23 +46,75 @@ def obtainCollection(selected_collection, comm_query, id=None):
 ### ROUTES ###
 @app.route('/')
 def index():
+    """
+    This function is a route for the home page. It retrieves all job documents from the 'jobs' collection 
+    and passes them to the 'index.html' template for rendering.
+
+    Parameters:
+    None
+
+    Returns:
+    render_template: A rendered HTML template with the 'jobs' data passed to it.
+
+    Raises:
+    None
+    """
     return render_template('index.html', jobs=obtainCollection('jobs', 'find'))
 
 
 @app.route('/job-description/<string:job_id>')
 def job_description(job_id):
+    """
+    This function is a route for the job description page. It retrieves a specific job document from the 'jobs' collection 
+    based on the provided job_id and passes it to the 'job-description.html' template for rendering.
+
+    Parameters:
+    job_id (str): The unique identifier of the job document to retrieve.
+
+    Returns:
+    render_template: A rendered HTML template with the 'job' data passed to it.
+
+    Raises:
+    None
+    """
     job = obtainCollection('jobs', 'find_one', job_id)
     return render_template('job-description.html', job=job)
 
 
 @app.route('/users-list')
 def user_list():
+    """
+    This function is a route for the users list page. It retrieves all user documents from the 'users' collection 
+    and passes them to the 'users.html' template for rendering.
+
+    Parameters:
+    None
+
+    Returns:
+    render_template: A rendered HTML template with the 'users' data passed to it.
+
+    Raises:
+    None
+    """
     # return "Hello users"
     return render_template('users.html', users=obtainCollection('users', 'find'))
 
-
+ 
 @app.route('/user-description/<string:user_id>')
 def user_description(user_id):
+    """
+    This function is a route for the user description page. It retrieves a specific user document from the 'users' collection 
+    based on the provided user_id and passes it to the 'user-description.html' template for rendering.
+
+    Parameters:
+    user_id (str): The unique identifier of the user document to retrieve.
+
+    Returns:
+    render_template: A rendered HTML template with the 'user' data passed to it.
+
+    Raises:
+    None
+    """
     user = obtainCollection('users', 'find_one', user_id)
     return render_template('user-description.html', user=user)
 
