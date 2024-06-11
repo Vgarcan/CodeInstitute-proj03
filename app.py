@@ -122,33 +122,82 @@ def user_description(user_id):
 
 @app.route('/companies-list')
 def companies_list():
-    
+    """
+    This function is a route for the companies list page. It retrieves all company documents from the 'companies' collection 
+    and passes them to the 'companies.html' template for rendering.
+
+    Parameters:
+    None
+
+    Returns:
+    render_template: A rendered HTML template with the 'companies' data passed to it.
+
+    Raises:
+    None
+    """
     # return "Hello users"
-    companies=obtainCollection('companies', 'find')
+    companies = obtainCollection('companies', 'find')
     # return print(companies)
-    return render_template('companies.html', companies = companies)
+    return render_template('companies.html', companies=companies)
 
  
 @app.route('/company-profile/<string:comp_id>')
 def com_prof(comp_id):
-    
+    """
+    This function is a route for the company profile page. It retrieves a specific company document from the 'companies' collection 
+    based on the provided comp_id and passes it to the 'company-description.html' template for rendering.
+
+    Parameters:
+    comp_id (str): The unique identifier of the company document to retrieve.
+
+    Returns:
+    render_template: A rendered HTML template with the 'company' data passed to it.
+
+    Raises:
+    None
+    """
     sel_company = obtainCollection('companies', 'find_one', id=comp_id)
     return render_template('company-description.html', company=sel_company)
 
 @app.route('/application-list')
 def application_list():
-    
+    """
+    This function is a route for the applications list page. It retrieves all application documents from the 'applications' collection 
+    and passes them to the 'applications.html' template for rendering.
+
+    Parameters:
+    None
+
+    Returns:
+    render_template: A rendered HTML template with the 'applications' data passed to it.
+
+    Raises:
+    None
+    """
     # return "Hello users"
-    applications=obtainCollection('applications', 'find')
+    applications = obtainCollection('applications', 'find')
     # return print(companies)
-    return render_template('applications.html', applications = applications)
+    return render_template('applications.html', applications=applications)
 
  
 @app.route('/application-desc/<string:appl_id>')
 def appl_desc(appl_id):
-    
+    """
+    This function is a route for the application description page. It retrieves a specific application document from the 'applications' collection 
+    based on the provided appl_id and passes it to the 'application-description.html' template for rendering.
+
+    Parameters:
+    appl_id (str): The unique identifier of the application document to retrieve.
+
+    Returns:
+    render_template: A rendered HTML template with the 'application' data passed to it.
+
+    Raises:
+    None
+    """
     applications = obtainCollection('applications', 'find_one', id=appl_id)
     return render_template('application-description.html', application=applications)
+
 
 
 if __name__ == '__main__':
