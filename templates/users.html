@@ -1,7 +1,6 @@
 {% extends "base.html" %} 
 {% block content %}
-    <h1 class="m-4">user Listings</h1>
-
+    <h1 class="m-4">User Listings</h1>
 
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
@@ -10,25 +9,27 @@
                 {% for user in users %}
                 <div class="col">
                     <div class="card shadow-sm">
-
                         <div class="card-body">
-                            <h2>{{ user.full_name }}</h2>
-                            <h2>{{ user._id }}</h2>
-                            <p><strong>Role:</strong> {{ user.Role }}</p>
-                            <p class="card-text overflow-hidden desc-card">{{ user.email }}</p>
-                            <p class="card-text ">SALARY: £{{ user.salary_range }}</p>
+                            <h2>{{ user.profile.name }} {{ user.profile.surname }}</h2>
+                            <p><strong>User ID:</strong> {{ user._id }}</p>
+                            <p><strong>Username:</strong> {{ user.username }}</p>
+                            <p><strong>Date of Birth:</strong> {{ user.profile.date_of_birth }}</p>
+                            <p><strong>Location:</strong> {{ user.profile.location }}</p>
+                            <p><strong>Address:</strong> {{ user.profile.address }}</p>
+                            <p><strong>Email:</strong> {{ user.profile.email }}</p>
+                            <p><strong>Website:</strong> <a href="{{ user.profile.website }}" target="_blank">User's Website</a></p>
+                            <p><strong>Created On:</strong> {{ user.created_on }}</p>
+                            <p><strong>Last Session:</strong> {{ user.last_session }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="{{ url_for('user_description', user_id=user._id) }}" type="button" class="btn btn-sm btn-outline-secondary" >View</a>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Apply</button>
+                                    <a href="{{ url_for('user_description', user_id=user._id) }}" type="button" class="btn btn-sm btn-outline-secondary">View</a>
                                 </div>
-                                <small class="text-body-secondary"><strong>Role:</strong> {{ user.role }}</small>
+                                <small class="text-body-secondary"><strong>Role:</strong> {{ user.Role }}</small>
                             </div>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
-
             </div>
         </div>
     </div>

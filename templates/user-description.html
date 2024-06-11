@@ -5,21 +5,52 @@
 
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
-
             <div class="card-body">
-                <h2>{{ user.profile.full_name }}</h2>
-                <h2>{{ user._id }}</h2>
-                <p><strong>CV:</strong><a href="{{ user.profile.resume_url }}">Download here</a></p>
-                <p class="card-text overflow-hidden desc-card">{{ user.email }}</p>
-                <p class="card-text ">SALARY: £{{ user.salary_range }}</p>
+                <h2>{{ user.profile.name }} {{ user.profile.surname }}</h2>
+                <p><strong>User ID:</strong> {{ user._id }}</p>
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Date of Birth:</strong> {{ user.profile.date_of_birth }}</p>
+                <p><strong>Location:</strong> {{ user.profile.location }}</p>
+                <p><strong>Address:</strong> {{ user.profile.address }}</p>
+                <p><strong>Email:</strong> {{ user.profile.email }}</p>
+                <p><strong>Website:</strong> <a href="{{ user.profile.website }}" target="_blank">{{ user.profile.website }}</a></p>
+                <p><strong>Created On:</strong> {{ user.created_on }}</p>
+                <p><strong>Last Session:</strong> {{ user.last_session }}</p>
+
+                <h3>Education</h3>
+                {% for edu in user.profile.education %}
+                <hr>
+                <div>
+                    <p><strong>Institution:</strong> {{ edu.institution }}</p>
+                    <p><strong>Degree:</strong> {{ edu.degree }}</p>
+                    <p><strong>Start Date:</strong> {{ edu.start_date }}</p>
+                    <p><strong>End Date:</strong> {{ edu.end_date }}</p>
+                </div>
+                <hr>
+                {% endfor %}
+
+                <h3>Experience</h3>
+                {% for exp in user.profile.experience %}
+                <hr>
+                <div>
+                    <p><strong>Company:</strong> {{ exp.company }}</p>
+                    <p><strong>Title:</strong> {{ exp.title }}</p>
+                    <p><strong>Start Date:</strong> {{ exp.start_date }}</p>
+                    <p><strong>End Date:</strong> {{ exp.end_date }}</p>
+                    <p><strong>Description:</strong> {{ exp.description }}</p>
+                </div>
+                <hr>
+                {% endfor %}
+
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                        <a href="{{ url_for('user_description', user_id=user._id) }}" type="button" class="btn btn-sm btn-outline-secondary" >View</a>
+                        <a href="{{ url_for('user_description', user_id=user._id) }}" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Apply</button>
                     </div>
-                    <small class="text-body-secondary"><strong>Role:</strong> {{ user.role }}</small>
                 </div>
             </div>
-        
         </div>
     </div>
+    
+</div>
 {% endblock %}
