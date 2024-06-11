@@ -10,7 +10,7 @@
             <p><strong>User ID:</strong> {{ application.user_id }}</p>
             <p><strong>Applied On:</strong> {{ application.applied_on }}</p>
             <div class="d-flex justify-content-between align-items-center">
-
+                <a href="{{ url_for('appl_desc', appl_id=application._id) }}" type="button" class="btn btn-sm btn-outline-secondary">View</a>
             </div>
         </div>
 
