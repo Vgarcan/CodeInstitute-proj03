@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="m-4">Company Listings</h1>
+
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for company in companies %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2>{{ company.profile.company_name }}</h2>
+                            <p><strong>ID:</strong> {{ company._id }}</p>
+                            <p><strong>Username:</strong> {{ company.username }}</p>
+                            <p><strong>Established Since:</strong> {{ company.profile.since }}</p>
+                            <p><strong>Location:</strong> {{ company.profile.location }}</p>
+                            <p><strong>Address:</strong> {{ company.profile.address }}</p>
+                            <p><strong>Email:</strong> {{ company.profile.email }}</p>
+                            <p><strong>Website:</strong> <a href="{{ company.profile.website }}" target="_blank">{{ company.profile.website }}</a></p>
+                            <p><strong>Created On:</strong> {{ company.profile.created_on }}</p>
+                            <p><strong>Last Session:</strong> {{ company.profile.last_session }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{{ url_for('com_prof', comp_id=company._id) }}" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Apply</button>
+                                </div>
+                                <small class="text-body-secondary"><strong>Role:</strong> {{ company.profile.role }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

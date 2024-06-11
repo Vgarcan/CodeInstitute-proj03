@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block content %}
+<h1 class="m-4">Job Application Details</h1>
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+
+        <div class="card-body">
+            <p><strong>Application ID:</strong> {{ application._id }}</p>
+            <p><strong>Job ID:</strong> {{ application.job_id }}</p>
+            <p><strong>User ID:</strong> {{ application.user_id }}</p>
+            <p><strong>Applied On:</strong> {{ application.applied_on }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

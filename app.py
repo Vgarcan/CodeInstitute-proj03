@@ -118,5 +118,37 @@ def user_description(user_id):
     user = obtainCollection('users', 'find_one', user_id)
     return render_template('user-description.html', user=user)
 
+
+@app.route('/companies-list')
+def companies_list():
+    
+    # return "Hello users"
+    companies=obtainCollection('companies', 'find')
+    # return print(companies)
+    return render_template('companies.html', companies = companies)
+
+ 
+@app.route('/company-profile/<string:comp_id>')
+def com_prof(comp_id):
+    
+    sel_company = obtainCollection('companies', 'find_one', id=comp_id)
+    return render_template('company-description.html', company=sel_company)
+
+@app.route('/application-list')
+def application_list():
+    
+    # return "Hello users"
+    applications=obtainCollection('applications', 'find')
+    # return print(companies)
+    return render_template('applications.html', applications = applications)
+
+ 
+@app.route('/application-desc/<string:appl_id>')
+def appl_desc(appl_id):
+    
+    applications = obtainCollection('applications', 'find_one', id=appl_id)
+    return render_template('application-description.html', application=applications)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
